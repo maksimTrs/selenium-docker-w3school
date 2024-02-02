@@ -15,7 +15,5 @@ COPY src /apps/qa/src
 
 # Run Maven clean and test when the container starts
 #CMD ["mvn", "test"]
-CMD ["mvn", "clean", "test"]
-
-#ENV env_browser_param chrome
-#ENTRYPOINT mvn test -Dbrowser=${browser} -DsuiteXmlFile=testng.xml
+#CMD ["mvn", "clean", "test"]
+ENTRYPOINT ["mvn", "clean", "-DBROWSER=$BROWSER", "test"]

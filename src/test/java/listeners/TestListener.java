@@ -17,57 +17,25 @@ import java.time.format.DateTimeFormatter;
 
 public class TestListener implements ITestListener {
 
-    private static Logger LOG = LogManager.getLogger(TestListener.class);
+    private static final Logger LOG = LogManager.getLogger(TestListener.class);
 
     @Override
     public void onStart(ITestContext context) {
-        LOG.info("-------------------- Testing started ----------------------");
+        LOG.info("-------------------- Test: " + context.getName().toUpperCase()+ " STARTED ----------------------");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-
-        LOG.info("-------------------- " + result.getName() + "PASSED" + "----------------------");
+        LOG.info("-------------------- Test: " + result.getName().toUpperCase() + " PASSED ----------------------");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-
-        LOG.info("-------------------- Testing finished ----------------------");
-
+        LOG.info("-------------------- Test: " + context.getName().toUpperCase()+ " FINISHED ----------------------");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-
-        LOG.error("Test case failed:" + result.getName());
-        captureScreenShot(result);
+        LOG.error("-------------------- " + result.getName().toUpperCase() + "FAILED ----------------------");
     }
-
-    private void captureScreenShot(ITestResult result) {
-
-        // testContext.setAttribute("driver", driver);
-        WebDriver driver = (WebDriver) result.getTestContext().getAttribute("driver");
-
-        try {
-            captureScreenshotAsFile(result, driver);
-        } catch (Exception e) {
-            LOG.error("Exception while taking screenshot ", e);
-        }
-    }
-
-    private void captureScreenshotAsFile(ITestResult result, WebDriver driver) throws IOException {
-        // To create reference of TakesScreenshot
-        TakesScreenshot screenshot = (TakesScreenshot) driver;
-        // Call method to capture screenshot
-        File src = screenshot.getScreenshotAs(OutputType.FILE);
-
-        String ssPath = System.getProperty("user.dir") + "\\screenshots";
-        // Copy files to specific location
-        FileUtils.copyFile(src, new File(ssPath + "\\" + result.getName() + LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss")) + ".png"));
-        LOG.info("Successfully captured a screenshot");
-    }
-
-
 }

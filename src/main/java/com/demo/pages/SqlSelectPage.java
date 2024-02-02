@@ -1,6 +1,8 @@
 package com.demo.pages;
 
 import com.demo.pages.common.BasePage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,16 +16,14 @@ import java.util.Map;
 
 public class SqlSelectPage extends BasePage {
 
-    // private static String tableAddressDataFromContactName = "//body/table//th[text()='ContactName']/following::tr[td]/td[3][contains(text(), '%s')]/../td[4]";
+    private static final Logger LOG = LogManager.getLogger(BasePage.class);
+
+
     private static String tableAddressDataFromContactName = "//div[@id='divResultSQL']//table//th[text()='ContactName']/following::tr[td]/td[3][contains(text(), '%s')]/../td[4]";
-    // private static String jsScriptTextareaCodeSQLCity = "document.querySelector('#textareaCodeSQL').value = 'Select * FROM Customers where city=\"%s\";'";
     private static String jsScriptTextareaCodeSQLCity = "window.editor.getDoc().setValue('Select * FROM Customers where city=\"%s\";');";
 
-    private static String jsScriptBtCode = "document.querySelector('#bt').value = '1'";
-    private static String submitSQLQuery = "w3schoolsNoWebSQLSubmit();";
     private static String jsScriptInsertCustomer4 = "window.editor.getDoc().setValue('INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) VALUES (\\'%s\\', \\'%s\\', \\'%s\\', \\'%s\\', \\'%s\\', \\'%s\\');');";
 
-    private static String jsScriptInsertCustomer2 = "document.getElementById('textareaCodeSQL').value = 'INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");'";
     private static String jsScriptInsertCustomer = "w3schoolsNoWebSQLSelectStar('Customers');";
     private static String submitSQLQuery2 = "w3schoolsSQLSubmit();";
 
@@ -52,7 +52,7 @@ public class SqlSelectPage extends BasePage {
                 .getText();
         // getDriver().switchTo().defaultContent();
 
-        System.out.println("####### " + format.trim() + " #######");
+        LOG.debug("####### " + format.trim() + " #######");
         return format.trim();
     }
 
@@ -80,33 +80,21 @@ public class SqlSelectPage extends BasePage {
             collect1.put(contactName.getText(), address.getText());
         }
 
-        System.out.println(collect1);
+        LOG.debug(collect1);
+        LOG.debug("####### " + collect1.size() + " #######");
 
-     /*   Map<String, String> collect = tableRowValuesList.stream()
-                .map(WebElement::getText)
-                .peek(System.out::println)
-                //.map(String::trim)
-                .map(s -> s.split(" "))
-                .peek(str -> System.out.println(Arrays.toString(str)))
-                .collect(Collectors.toMap(arr -> arr[2], arr -> arr[3]));*/
-
-        System.out.println("####### " + collect1.size() + " #######");
         return collect1;
     }
 
 
     public void executeJavaScriptSearchCustomerCity(String city) {
-        getDriver().manage().timeouts().scriptTimeout(Duration.ofMillis(600));
         ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptTextareaCodeSQLCity, city));
         ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery2);
-        //  ((JavascriptExecutor) getDriver()).executeScript(jsScriptBtCode);
-        //  ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
     }
 
     public void executeJavaScriptToCreateNewCustomer(String customerName, String contactName, String address,
                                                      String city, String postalCode, String country) {
 
-        // getDriver().manage().timeouts().scriptTimeout(Duration.ofMillis(600));
         ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptInsertCustomer4, customerName,
                 contactName,
                 address,

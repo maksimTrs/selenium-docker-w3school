@@ -4,7 +4,7 @@
 
     <test name="Functional tests">
 
-        <parameter name="browser" value="chrome_remote"/>
+        <parameter name="BROWSER" value="CHROME_REMOTE"/>
         <classes>
             <class name="testsuite.ContactNameAddressTest"/>
             <class name="testsuite.CityQueryTest"/>

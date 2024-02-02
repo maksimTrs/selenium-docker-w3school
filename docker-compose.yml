@@ -1,7 +1,6 @@
-# To execute this docker-compose yml file use `docker-compose -f docker-compose.yml up`
-# Add the `-d` flag at the end for detached execution
-# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose.yml down`
-# docker compose  -f docker-compose.yml up --scale chrome=2 --scale firefox=2
+#  http://localhost:4444/ui#  -> UI Selenium HUB
+#  http://localhost:7900/  -> noVnc UI for Chrome debugging (if it is activated -> it will work only for 1 node!)
+# https://github.com/SeleniumHQ/docker-selenium/releases/tag/4.10.0-20230607 -> image for Chrome ver: 114.0.5735.106
 version: "3"
 services:
   chrome:
@@ -17,28 +16,21 @@ services:
     ports:
       - "7900:7900"
   test-runner:
-    build: .
+    # build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     #    extra_hosts:
     #      - "host.docker.internal:host-gateway"
-    container_name: all-tests-container
+    container_name: tests-container
     depends_on:
       chrome:
         condition: service_started
     volumes:
       - ./allure-results:/apps/qa/allure-results
-      - ./logs:/apps/qa/logs/
-  #  firefox:
-  #    image: selenium/node-firefox:4.15.0-20231102
-  #    shm_size: 2gb
-  #    depends_on:
-  #      - selenium-hub
-  #    environment:
-  #      - SE_EVENT_BUS_HOST=selenium-hub
-  #      - SE_EVENT_BUS_PUBLISH_PORT=4442
-  #      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-  #      - SE_VNC_NO_PASSWORD=1
-  #    ports:
-  #      - "7902:7900"
+      - ./logs:/apps/qa/logs
+    environment:
+      - BROWSER=CHROME_REMOTE
   selenium-hub:
     image: selenium/hub:4.10.0-20230607
     container_name: selenium-hub
@@ -46,6 +38,3 @@ services:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
-
-#  http://localhost:4444/ui#  -> UI with nodes
-#  http://localhost:7900/  -> noVnc UI for chrome (if was activated -> will be working only for 1 node!)

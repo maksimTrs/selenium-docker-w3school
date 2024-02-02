@@ -1,6 +1,6 @@
 package testsuite;
 
-import com.demo.constants.PageConstants;
+import com.demo.constants.Constants;
 import com.demo.pages.SqlSelectPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ public class InsertCustomerTest extends BaseTest {
 
     @Test()
     public void insertCustomerTest() {
-        driver.get(PageConstants.LAUNCH_URL);
+        driver.get(Constants.LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
 
         launchPage.executeJavaScriptToCreateNewCustomer("Bob1 Bob1", "John1 Doe1",
