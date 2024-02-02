@@ -1,25 +1,27 @@
 package testsuite;
 
-import com.demo.constants.Constants;
 import com.demo.pages.SqlSelectPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import testsuite.common.BaseTest;
 
 import static com.demo.constants.Constants.LAUNCH_URL;
 
-public class CityQueryTest extends BaseTest {
+public class SelectCityResultTest extends BaseTest {
 
     @Test()
     public void citySQLSearchTest() {
+
+        String sqlCustomerQuery = "Select * FROM Customers where city=\"London\";";
+
         driver.get(LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
-
-        launchPage.executeJavaScriptSearchCustomerCity("London");
+        launchPage.selectSqlQuery(sqlCustomerQuery);
         //launchPage.executeSQLRunButton();
         //launchPage.switchToSQLFrame();
 
-        int londonRowCount = launchPage.getSQLRunTableSizeResult();
-        Assert.assertEquals(londonRowCount, 6);
+
+        Assert.assertEquals(launchPage.getTableSize(), 6);
 
     }
 }

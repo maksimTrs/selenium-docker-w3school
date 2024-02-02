@@ -4,13 +4,12 @@ import com.demo.constants.Constants;
 import com.demo.pages.SqlSelectPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import testsuite.common.BaseTest;
 
 import java.util.Map;
 
-import static com.demo.constants.Constants.ADDRESS_ROVELLI;
-import static com.demo.constants.Constants.CONTACT_ROVELLI;
 
-public class ContactNameAddressTest extends BaseTest {
+public class SelectContactNameAndAddressTest extends BaseTest {
 
 /*
     @Test
@@ -27,15 +26,16 @@ public class ContactNameAddressTest extends BaseTest {
 
 
     @Test()
-    public void contactAddress2Test() {
+    public void contactAddressTest() {
+        String addressRovelli = "Via Ludovico il Moro 22";
+        String contactRovelli = "Giovanni Rovelli";
+
         driver.get(Constants.LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.executeSQLRunButton();
         //launchPage.switchToSQLFrame();
+        Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
-        Assert.assertEquals(launchPage.getTitle(), Constants.LAUNCH_PAGE_TITLE);
-
-        Map<String, String> contactNameAndAddressMap = launchPage.getContactNameAndAddressMap();
-        Assert.assertEquals(contactNameAndAddressMap.get(CONTACT_ROVELLI), ADDRESS_ROVELLI);
+        Assert.assertEquals(contactNameAndAddressMap.get(contactRovelli), addressRovelli);
     }
 }

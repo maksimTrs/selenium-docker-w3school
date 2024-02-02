@@ -27,3 +27,7 @@
 <allure serve> command.
 NOTE: need to install allure to the host machine.
 4) Execute locally allure report: <mvn allure:serve>
+
+https://groups.google.com/a/chromium.org/g/blink-dev/c/fWYb6evVA-w/m/pziWcvboAgAJ?pli=1
+
+https://developer.chrome.com/blog/deprecating-web-sql?hl=ru

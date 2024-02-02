@@ -6,8 +6,8 @@
 
         <parameter name="BROWSER" value="CHROME_REMOTE"/>
         <classes>
-            <class name="testsuite.ContactNameAddressTest"/>
-            <class name="testsuite.CityQueryTest"/>
+            <class name="testsuite.SelectContactNameAndAddressTest"/>
+            <class name="testsuite.SelectCityResultTest"/>
             <class name="testsuite.InsertCustomerTest"/>
             <class name="testsuite.UpdateCustomerTest"/>
         </classes>

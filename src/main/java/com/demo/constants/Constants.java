@@ -11,6 +11,4 @@ public class Constants {
     public static final String LAUNCH_URL = "https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all";
 
     public static final String LAUNCH_PAGE_TITLE = "SQL Tryit Editor v1.6";
-    public static final String ADDRESS_ROVELLI = "Via Ludovico il Moro 22";
-    public static final String CONTACT_ROVELLI = "Giovanni Rovelli";
 }
