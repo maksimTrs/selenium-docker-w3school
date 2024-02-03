@@ -32,7 +32,7 @@ _**#############################################################################
 - https://groups.google.com/a/chromium.org/g/blink-dev/c/fWYb6evVA-w/m/pziWcvboAgAJ?pli=1
 - https://developer.chrome.com/blog/deprecating-web-sql?hl=ru
 
-2) Пятый тест проверяет _**DELETE SQL**_ сценарий чтобы проверить основыне CRUD
+2) Пятый тест проверяет _**DELETE SQL**_ сценарий чтобы проверить основные CRUD
    сценарии (https://ru.wikipedia.org/wiki/CRUD)
 
 **_---------------------------------------------------------------------------------------------------------------_**
