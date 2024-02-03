@@ -3,6 +3,7 @@ package testsuite.common;
 import com.demo.constants.Constants;
 import io.qameta.allure.Attachment;
 import listeners.TestListener;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
@@ -17,8 +18,11 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utils.WebDriverFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.*;
 import java.time.Duration;
 
 import static com.demo.constants.Constants.REMOTE_URL;
@@ -27,6 +31,21 @@ import static com.demo.constants.Constants.REMOTE_URL;
 public abstract class BaseTest {
     private static final Logger LOG = LogManager.getLogger(BaseTest.class);
     protected WebDriver driver;
+
+
+
+    @BeforeSuite
+    public static void executePreConditions() {
+
+        try {
+            FileUtils.deleteDirectory(new File("./allure-results"));
+            LOG.info("###################   Folder <allure>  was  deleted   ###################");
+        } catch (NoSuchFileException | DirectoryNotEmptyException x) {
+            System.err.format(x.getMessage());
+        } catch (IOException ix) {
+            ix.printStackTrace();
+        }
+    }
 
     @Parameters({"BROWSER"})  // "CHROME_REMOTE" | "CHROME"
     @BeforeMethod
@@ -49,7 +68,7 @@ public abstract class BaseTest {
         if (!iTestResult.isSuccess()) {
             takeScreenShot();
             LOG.info("###################   Was added  screenshot for the test: "
-                    + iTestResult.getTestName().toUpperCase() + " ###################");
+                    + iTestResult.getTestName() + " ###################");
         }
         driver.quit();
     }

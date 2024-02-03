@@ -27,10 +27,10 @@ public class SelectContactNameAndAddressTest extends BaseTest {
         driver.get(Constants.LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.executeSQLRunButton();
-        //launchPage.switchToSQLFrame();
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
         Assert.assertEquals(contactNameAndAddressMap.get(contactRovelli), addressRovelli);
+
 
         Allure.addAttachment("Actual contact " + contactRovelli +  " address: ",
                 contactNameAndAddressMap.get(contactRovelli));

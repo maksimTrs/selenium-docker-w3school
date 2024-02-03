@@ -20,7 +20,8 @@ public class SqlSelectPage extends BasePage {
 
     private static String tableAddressDataFromContactName = "//div[@id='divResultSQL']//table//th[text()='ContactName']" +
             "/following::tr[td]/td[3][contains(text(), '%s')]/../td[4]";
-    private static String jsScriptInsertCustomer4 = "window.editor.getDoc().setValue('%s');";
+    private static String jsScriptInsertCustomer4 = "window.editor.getDoc().setValue(\"%s\");";
+
     private static String jsScriptInsertCustomer = "w3schoolsNoWebSQLSelectStar('Customers');";
     private static String submitSQLQuery2 = "w3schoolsSQLSubmit();";
 
