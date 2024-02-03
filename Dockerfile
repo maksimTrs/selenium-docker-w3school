@@ -1,5 +1,4 @@
-# Use the official Maven image with a JDK
-# FROM maven:3.8.6-jdk-11
+# TODO: < improve docker file build logic - collect prepeared .jar test/lib files instead of maven depedency download step >
 FROM maven:3.8.4-openjdk-17-slim
 
 # Set the working directory to the Maven project directory
