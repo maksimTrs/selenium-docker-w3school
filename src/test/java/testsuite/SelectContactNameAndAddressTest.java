@@ -12,6 +12,8 @@ import testsuite.common.BaseTest;
 
 import java.util.Map;
 
+import static com.demo.constants.Constants.LAUNCH_URL;
+
 
 public class SelectContactNameAndAddressTest extends BaseTest {
 
@@ -24,7 +26,7 @@ public class SelectContactNameAndAddressTest extends BaseTest {
         String addressRovelli = "Via Ludovico il Moro 22";
         String contactRovelli = "Giovanni Rovelli";
 
-        driver.get(Constants.LAUNCH_URL);
+        driver.get(LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.executeSQLRunButton();
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
@@ -32,7 +34,7 @@ public class SelectContactNameAndAddressTest extends BaseTest {
         Assert.assertEquals(contactNameAndAddressMap.get(contactRovelli), addressRovelli);
 
 
-        Allure.addAttachment("Actual contact " + contactRovelli +  " address: ",
+        Allure.addAttachment("Actual contact " + contactRovelli + " address: ",
                 contactNameAndAddressMap.get(contactRovelli));
     }
 }

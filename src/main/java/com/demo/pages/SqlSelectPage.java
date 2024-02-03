@@ -8,7 +8,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -60,7 +59,7 @@ public class SqlSelectPage extends BasePage {
         String format = getDriver().findElement(By.xpath(String.format(tableAddressDataFromContactName, contactName)))
                 .getText();
 
-        LOG.info("####### contact info: " + format.trim() + " #######");
+        LOG.info("####### CONTACT ADDRESS INFO: " + format.trim() + " #######");
         return format.trim();
     }
 
@@ -120,7 +119,7 @@ public class SqlSelectPage extends BasePage {
             throw new RuntimeException(e);
         }
 
-      //  getWait().until(ExpectedConditions.visibilityOf(resultSQLQueryInfo));
+        //  getWait().until(ExpectedConditions.visibilityOf(resultSQLQueryInfo));
         submitSqlQuery();
     }
 }

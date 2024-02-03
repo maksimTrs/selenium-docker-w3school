@@ -8,11 +8,12 @@ import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import testsuite.common.BaseTest;
 
 import java.util.Map;
+
+import static com.demo.constants.Constants.LAUNCH_URL;
 
 public class DeleteCustomerTest extends BaseTest {
 
@@ -20,11 +21,11 @@ public class DeleteCustomerTest extends BaseTest {
 
 
     @BeforeMethod
-    private   void insertCustomerForDeletionTest() {
+    private void insertCustomerForDeletionTest() {
         String sqlCustomerQuery = "INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) " +
                 "VALUES (\"Bob_Del Mol_Del\", \"%s\", \"007 DEL Street\", \"Paradise\", \"9999\", \"USA\")";
 
-        driver.get(Constants.LAUNCH_URL);
+        driver.get(LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, CONTRACT_NAME));
 
@@ -46,7 +47,7 @@ public class DeleteCustomerTest extends BaseTest {
 
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
-		Assert.assertFalse(contactNameAndAddressMap.containsKey(CONTRACT_NAME));
+        Assert.assertFalse(contactNameAndAddressMap.containsKey(CONTRACT_NAME));
 
 
         Allure.addAttachment("Actual Deleted Customer " + CONTRACT_NAME + " has and address: ",

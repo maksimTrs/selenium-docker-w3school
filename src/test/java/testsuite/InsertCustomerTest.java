@@ -12,6 +12,8 @@ import testsuite.common.BaseTest;
 
 import java.util.Map;
 
+import static com.demo.constants.Constants.LAUNCH_URL;
+
 public class InsertCustomerTest extends BaseTest {
 
 
@@ -25,13 +27,13 @@ public class InsertCustomerTest extends BaseTest {
         String sqlCustomerQuery = "INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) " +
                 "VALUES (\"Bob1 Bob1\", \"%s\", \"000 Main St\", \"Anytown\", \"12345\", \"USA\")";
 
-        driver.get(Constants.LAUNCH_URL);
+        driver.get(LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, contactName));
-		Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
+        Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
-		Assert.assertTrue(contactNameAndAddressMap.containsKey(contactName));
-		Assert.assertEquals(contactNameAndAddressMap.get(contactName), "000 Main St");
+        Assert.assertTrue(contactNameAndAddressMap.containsKey(contactName));
+        Assert.assertEquals(contactNameAndAddressMap.get(contactName), "000 Main St");
 
 
         Allure.addAttachment("Actual Inserted Customer " + contactName + " Address: ",

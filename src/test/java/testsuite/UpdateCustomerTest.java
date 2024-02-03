@@ -12,6 +12,8 @@ import testsuite.common.BaseTest;
 
 import java.util.Map;
 
+import static com.demo.constants.Constants.LAUNCH_URL;
+
 public class UpdateCustomerTest extends BaseTest {
 
 
@@ -33,7 +35,7 @@ public class UpdateCustomerTest extends BaseTest {
                 "WHERE CustomerID = '%s'";
 
 
-        driver.get(Constants.LAUNCH_URL);
+        driver.get(LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.updateSqlQuery(String.format(sqlCustomerQuery, contactName, customerId));
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();

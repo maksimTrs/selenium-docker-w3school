@@ -12,22 +12,22 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.*;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.NoSuchFileException;
 import java.time.Duration;
 
-import static com.demo.constants.Constants.REMOTE_URL;
+import static com.demo.constants.Constants.*;
+import static org.openqa.selenium.OutputType.BYTES;
+import static org.openqa.selenium.PageLoadStrategy.EAGER;
 
 @Listeners(TestListener.class)
 public abstract class BaseTest {
@@ -72,19 +72,19 @@ public abstract class BaseTest {
 
         System.out.println("###################   " + browser + "   ###################");
 
-        if (Constants.CHROME_BROWSER.equals(browser)) {
+        if (CHROME_BROWSER.equals(browser)) {
 
             ChromeOptions options = new ChromeOptions();
-            options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+            options.setPageLoadStrategy(EAGER);
             options.addArguments("--incognito");
             options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             //options.addArguments("--headless","--whitelisted-ips","--no-sandbox","--disable-extensions");
             driver = new ChromeDriver(options);
 
-        } else if (Constants.CHROME_REMOTE_BROWSER.equals(browser)) {
+        } else if (CHROME_REMOTE_BROWSER.equals(browser)) {
 
             ChromeOptions options = new ChromeOptions();
-            options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+            options.setPageLoadStrategy(EAGER);
             options.addArguments("--incognito");
             options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 
@@ -105,7 +105,7 @@ public abstract class BaseTest {
 
     @Attachment(value = "Screenshot", type = "image/png")
     public byte[] takeScreenShot() {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) driver).getScreenshotAs(BYTES);
     }
 
 }

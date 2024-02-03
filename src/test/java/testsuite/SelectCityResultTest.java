@@ -29,7 +29,7 @@ public class SelectCityResultTest extends BaseTest {
         Assert.assertEquals(launchPage.getTableSize(), 6);
 
 
-        Allure.addAttachment("Actual result count for the " + city +  " query: ",
+        Allure.addAttachment("Actual result count for the " + city + " query: ",
                 String.valueOf(launchPage.getTableSize()));
     }
 }
