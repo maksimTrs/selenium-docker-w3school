@@ -37,8 +37,8 @@ public class WebDriverFactory {
             throw new IllegalArgumentException("Invalid browser: " + browser);
         }
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
-        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(900));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+       // driver.manage().timeouts().scriptTimeout(Duration.ofMillis(900));
 
         return driver;
     }

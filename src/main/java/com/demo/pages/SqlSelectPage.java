@@ -20,10 +20,14 @@ public class SqlSelectPage extends BasePage {
 
     private static String tableAddressDataFromContactName = "//div[@id='divResultSQL']//table//th[text()='ContactName']" +
             "/following::tr[td]/td[3][contains(text(), '%s')]/../td[4]";
-    private static String jsScriptInsertCustomer4 = "window.editor.getDoc().setValue(\"%s\");";
+    private static String jsScriptSQL2 = "window.editor.getDoc().setValue(\"%s\");";
+    private static String jsScriptSQL1 = "window.editor.getDoc().setValue('%s');";
+
+    private static String jsScriptSQL3 = "window.editor.getDoc().setValue(`%s`);";
+
 
     private static String jsScriptInsertCustomer = "w3schoolsNoWebSQLSelectStar('Customers');";
-    private static String submitSQLQuery2 = "w3schoolsSQLSubmit();";
+    private static String submitSQLQuery = "w3schoolsSQLSubmit();";
 
 
     @FindBy(xpath = "//button[text()='Run SQL »']")
@@ -80,22 +84,38 @@ public class SqlSelectPage extends BasePage {
 
 
     public void selectSqlQuery(String sqlCustomerQuery) {
-        ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptInsertCustomer4, sqlCustomerQuery));
-        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery2);
+        ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptSQL2, sqlCustomerQuery));
+        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
     }
 
-    public void insertOrUpdateSqlQuery(String sqlCustomerQuery) {
-        ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptInsertCustomer4, sqlCustomerQuery));
-        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery2);
+    public void insertSqlQuery(String sqlCustomerQuery) {
+        ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptSQL1, sqlCustomerQuery));
+        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
 
-        // TODO: < improve logic to avoid Thread.sleep() -> add a wait  object  for the upcoming  element >
-  /*      try {
-            Thread.sleep(700);
+        // TODO: <refactoring plan: improve logic to avoid Thread.sleep() -> add a wait  logic  for the upcoming  element! >
+        try {
+            Thread.sleep(900);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
         ((JavascriptExecutor) getDriver()).executeScript(jsScriptInsertCustomer);
-        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery2);
+        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
+    }
+
+
+    public void updateSqlQuery(String sqlCustomerQuery) {
+        ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptSQL2, sqlCustomerQuery));
+        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
+
+        // TODO: <refactoring plan: improve logic to avoid Thread.sleep() -> add a wait  logic  for the upcoming  element! >
+        try {
+            Thread.sleep(900);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ((JavascriptExecutor) getDriver()).executeScript(jsScriptInsertCustomer);
+        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
     }
 }

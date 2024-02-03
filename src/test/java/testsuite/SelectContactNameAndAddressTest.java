@@ -16,7 +16,7 @@ import java.util.Map;
 public class SelectContactNameAndAddressTest extends BaseTest {
 
     @Feature("SELECT SQL")
-    @Story("Вывести все строки таблицы Customers и убедиться, что запись с ContactName равной 'Giovanni Rovelli' " +
+    @Story("1. Вывести все строки таблицы Customers и убедиться, что запись с ContactName равной 'Giovanni Rovelli' " +
             "имеет Address = 'Via Ludovico il Moro 22'.")
     @Link("https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all")
     @Test()

@@ -14,7 +14,7 @@ import static com.demo.constants.Constants.LAUNCH_URL;
 public class SelectCityResultTest extends BaseTest {
 
     @Feature("SELECT SQL WITH CITY")
-    @Story("Вывести только те строки таблицы Customers, где city='London'. Проверить, что в таблице ровно 6 записей.")
+    @Story("2. Вывести только те строки таблицы Customers, где city='London'. Проверить, что в таблице ровно 6 записей.")
     @Link("https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all")
     @Test()
     public void citySQLSearchTest() {
