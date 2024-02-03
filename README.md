@@ -93,7 +93,7 @@ _**#############################################################################
 
 или в фоновом режиме:
 
-**_`docker compose -f docker-compose-dev.yml up`_**
+**_`docker compose -f docker-compose-dev.yml up -d`_**
 
 2) Дождаться завершения тестов - docker контейнер с именем [**_tests-container_**] будет неактивен
 
