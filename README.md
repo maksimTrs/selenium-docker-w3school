@@ -23,7 +23,7 @@
 
 0) https://allurereport.org/docs/gettingstarted-installation/
 
-1) run tests: mvn clean test |  docker compose up -d
+1) run tests: mvn clean test |  docker compose up -d  |  docker compose  -f docker-compose-dev.yml  up
 2) open docker debug UI for chrome: http://localhost:7900/  OR http://localhost:4444/ui#  
 3) The folder "allure-results" contains docker allure result. Open the folder via Explorer and execute
 <allure serve> command.

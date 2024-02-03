@@ -24,9 +24,9 @@ services:
     ports:
       - "7999:7900"
   test-runner:
-    image: roronoazorroippo/test-runner:1.0
-    #    extra_hosts:
-    #      - "host.docker.internal:host-gateway"
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: tests-container
     depends_on:
       chrome:
