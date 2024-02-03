@@ -37,7 +37,7 @@ public abstract class BaseTest {
     protected WebDriver driver;
 
 
-    @BeforeSuite
+ /*   @BeforeSuite
     public static void executePreConditions() {
 
         try {
@@ -48,7 +48,7 @@ public abstract class BaseTest {
         } catch (IOException ix) {
             ix.printStackTrace();
         }
-    }
+    }*/
 
     @Parameters({"BROWSER"})
     @BeforeMethod
