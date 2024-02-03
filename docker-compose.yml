@@ -1,17 +1,17 @@
 #  http://localhost:4444/ui#  -> UI Selenium HUB
 #  http://localhost:7999/  -> noVnc UI for Chrome debugging (if it is activated -> it will work only for 1 node!)
-# https://github.com/SeleniumHQ/docker-selenium/releases/tag/4.12.1-20230912 -> image for Chrome ver: 116.0.5845.187
+# https://github.com/SeleniumHQ/docker-selenium/releases/tag/4.9.1-20230508 -> image for Chrome ver: 113.0.5672.63
 version: "3"
 services:
   selenium-hub:
-    image: selenium/hub:4.12.1-20230912
+    image: selenium/hub:4.9.1-20230508
     container_name: selenium-hub
     ports:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
   chrome:
-    image: selenium/node-chrome:4.12.1-20230912
+    image: selenium/node-chrome:4.9.1-20230508
     container_name: chrome-hub
     shm_size: 2gb
     depends_on:

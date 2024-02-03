@@ -12,11 +12,13 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import utils.WebDriverFactory;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +32,9 @@ import static com.demo.constants.Constants.REMOTE_URL;
 @Listeners(TestListener.class)
 public abstract class BaseTest {
     private static final Logger LOG = LogManager.getLogger(BaseTest.class);
-    protected WebDriver driver;
 
+    private static ThreadLocal<RemoteWebDriver> remoteThreadLocalDriver = new ThreadLocal<>();
+    protected WebDriver driver;
 
 
     @BeforeSuite
@@ -47,30 +50,57 @@ public abstract class BaseTest {
         }
     }
 
-    @Parameters({"BROWSER"})  // "CHROME_REMOTE" | "CHROME"
+    @Parameters({"BROWSER"})
     @BeforeMethod
-    public void beforeTest(@Optional("CHROME_REMOTE") String xmlBrowser, ITestContext testContext) {
+    public void beforeTest(@Optional("CHROME_REMOTE") String browser, ITestContext testContext) {
 
-        // Check if the system property -DBROWSER is provided
-        String systemBrowser = System.getProperty("BROWSER");
-        // Determine the browser based on priority
-        String browser = (systemBrowser != null && !systemBrowser.isEmpty()) ? systemBrowser : xmlBrowser;
-
-        //driver = initializeDriver(browser);
-        driver = WebDriverFactory.getDriver(browser);
+        driver = initializeDriver(browser);
         testContext.setAttribute("driver", driver);
-
-        LOG.info("###################   Browser " + browser + " is started   ###################");
     }
+
 
     @AfterMethod(alwaysRun = true)
     public void afterTest(ITestResult iTestResult) {
         if (!iTestResult.isSuccess()) {
             takeScreenShot();
-            LOG.info("###################   Was added  screenshot for the test: "
-                    + iTestResult.getTestName() + " ###################");
         }
         driver.quit();
+        remoteThreadLocalDriver.remove();
+    }
+
+    public WebDriver initializeDriver(String browser) {        //	chrome_remote  | chrome
+
+        System.out.println("###################   " + browser + "   ###################");
+
+        if (Constants.CHROME_BROWSER.equals(browser)) {
+
+            ChromeOptions options = new ChromeOptions();
+            options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+            options.addArguments("--incognito");
+            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+            //options.addArguments("--headless","--whitelisted-ips","--no-sandbox","--disable-extensions");
+            driver = new ChromeDriver(options);
+
+        } else if (Constants.CHROME_REMOTE_BROWSER.equals(browser)) {
+
+            ChromeOptions options = new ChromeOptions();
+            options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+            options.addArguments("--incognito");
+            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+
+            try {
+                remoteThreadLocalDriver.set(new RemoteWebDriver(new URL(REMOTE_URL), options));
+                driver = remoteThreadLocalDriver.get();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+
+        return driver;
     }
 
     @Attachment(value = "Screenshot", type = "image/png")
