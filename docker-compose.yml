@@ -24,7 +24,7 @@ services:
     ports:
       - "7999:7900"
   test-runner:
-    image: roronoazorroippo/test-runner:1.0
+    image: roronoazorroippo/test-runner:2.0
     #    extra_hosts:
     #      - "host.docker.internal:host-gateway"
     container_name: tests-container
