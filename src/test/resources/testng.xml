@@ -10,6 +10,7 @@
             <class name="testsuite.SelectCityResultTest"/>
             <class name="testsuite.InsertCustomerTest"/>
             <class name="testsuite.UpdateCustomerTest"/>
+            <class name="testsuite.DeleteCustomerTest"/>
         </classes>
     </test>
 

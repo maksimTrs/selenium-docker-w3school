@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,21 +38,14 @@ public class SqlSelectPage extends BasePage {
     @FindBy(xpath = "//div[@id='divResultSQL']//table//th[text()='ContactName']/../../tr[td]")
     private List<WebElement> tableRowValuesList;
 
+    @FindBy(css = "div#resultSQL div#divResultSQL > div")
+    private WebElement resultSQLQueryInfo;
+
 
     public SqlSelectPage(WebDriver argDriver) {
         super(argDriver);
     }
 
-
-    public String getContactAddressText(String contactName) {
-        // getDriver().switchTo().frame(resultSQLIframe);
-        String format = getDriver().findElement(By.xpath(String.format(tableAddressDataFromContactName, contactName)))
-                .getText();
-        // getDriver().switchTo().defaultContent();
-
-        LOG.debug("####### " + format.trim() + " #######");
-        return format.trim();
-    }
 
     public void executeSQLRunButton() {
         runSQLBtn.click();
@@ -61,8 +55,13 @@ public class SqlSelectPage extends BasePage {
         return tableRowValuesList.size();
     }
 
-    public void switchToSQLFrame() {
-        getDriver().switchTo().frame(resultSQLIframe);
+
+    public String getContactAddressText(String contactName) {
+        String format = getDriver().findElement(By.xpath(String.format(tableAddressDataFromContactName, contactName)))
+                .getText();
+
+        LOG.info("####### contact info: " + format.trim() + " #######");
+        return format.trim();
     }
 
 
@@ -88,7 +87,14 @@ public class SqlSelectPage extends BasePage {
         ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
     }
 
-    public void insertSqlQuery(String sqlCustomerQuery) {
+    private void submitSqlQuery() {
+        ((JavascriptExecutor) getDriver()).executeScript(jsScriptInsertCustomer);
+        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
+    }
+
+
+    // TODO: <refactoring plan: optimize JS methods, avoid duplication logic >
+    public void insertOrDeleteSqlQuery(String sqlCustomerQuery) {
         ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptSQL1, sqlCustomerQuery));
         ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
 
@@ -98,15 +104,14 @@ public class SqlSelectPage extends BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        ((JavascriptExecutor) getDriver()).executeScript(jsScriptInsertCustomer);
-        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
+        //getWait().until(ExpectedConditions.visibilityOf(resultSQLQueryInfo));
+        submitSqlQuery();
     }
 
 
+    // TODO: <refactoring plan: optimize JS methods, avoid duplication logic >
     public void updateSqlQuery(String sqlCustomerQuery) {
-        ((JavascriptExecutor) getDriver()).executeScript(String.format(jsScriptSQL2, sqlCustomerQuery));
-        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
+        selectSqlQuery(sqlCustomerQuery);
 
         // TODO: <refactoring plan: improve logic to avoid Thread.sleep() -> add a wait  logic  for the upcoming  element! >
         try {
@@ -115,7 +120,7 @@ public class SqlSelectPage extends BasePage {
             throw new RuntimeException(e);
         }
 
-        ((JavascriptExecutor) getDriver()).executeScript(jsScriptInsertCustomer);
-        ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery);
+      //  getWait().until(ExpectedConditions.visibilityOf(resultSQLQueryInfo));
+        submitSqlQuery();
     }
 }

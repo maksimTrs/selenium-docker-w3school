@@ -27,7 +27,7 @@ public class InsertCustomerTest extends BaseTest {
 
         driver.get(Constants.LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
-        launchPage.insertSqlQuery(String.format(sqlCustomerQuery, contactName));
+        launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, contactName));
 		Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
 		Assert.assertTrue(contactNameAndAddressMap.containsKey(contactName));

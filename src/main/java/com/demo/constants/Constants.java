@@ -10,5 +10,4 @@ public class Constants {
 
     public static final String LAUNCH_URL = "https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all";
 
-    public static final String LAUNCH_PAGE_TITLE = "SQL Tryit Editor v1.6";
 }
