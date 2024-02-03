@@ -1,7 +1,7 @@
 # **# Selenium tests in Docker**
 
 
-### **TASK:**
+### **Задача:**
 
 Используя любой язык программирования необходимо написать следующие автотесты для сайта https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 1. Вывести все строки таблицы Customers и убедиться, что запись с ContactName равной 'Giovanni Rovelli' имеет Address = 'Via Ludovico il Moro 22'.
@@ -10,6 +10,8 @@
 4. Обновить все поля (кроме CustomerID) в любой записи таблицы Customers и проверить, что изменения записались в базу.
 5. Придумать собственный автотест и реализовать (тут все ограничивается только вашей фантазией).
    Заполнить поле ввода можно с помощью js кода, используя объект window.editor.
+
+
    Требования:
 - Для реализации обязательно использовать Selenium WebDriver
 - Тесты должны запускаться в docker контейнере
@@ -17,7 +19,7 @@
 
 
 
-### **INFO:**
+### **Решение:**
 
 0) https://allurereport.org/docs/gettingstarted-installation/
 

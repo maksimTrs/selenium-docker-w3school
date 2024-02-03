@@ -21,21 +21,21 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        LOG.info("-------------------- Test: " + context.getName().toUpperCase()+ " STARTED ----------------------");
+        LOG.info("-------------------- Test: " + context.getName() + " STARTED ----------------------");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        LOG.info("-------------------- Test: " + result.getName().toUpperCase() + " PASSED ----------------------");
+        LOG.info("-------------------- Test: " + result.getName() + " PASSED ----------------------");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        LOG.info("-------------------- Test: " + context.getName().toUpperCase()+ " FINISHED ----------------------");
+        LOG.info("-------------------- Test: " + context.getName() + " FINISHED ----------------------");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        LOG.error("-------------------- " + result.getName().toUpperCase() + "FAILED ----------------------");
+        LOG.error("-------------------- " + result.getName() + " FAILED ----------------------");
     }
 }

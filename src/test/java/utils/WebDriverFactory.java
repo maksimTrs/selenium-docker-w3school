@@ -9,6 +9,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+
+import static com.demo.constants.Constants.*;
+import static org.openqa.selenium.PageLoadStrategy.EAGER;
 
 public class WebDriverFactory {
 
@@ -25,13 +29,16 @@ public class WebDriverFactory {
     private static WebDriver initializeDriver(String browser) {
         WebDriver driver;
 
-        if (Constants.CHROME_BROWSER.equalsIgnoreCase(browser)) {
+        if (CHROME_BROWSER.equalsIgnoreCase(browser)) {
             driver = createChromeDriver();
-        } else if (Constants.CHROME_REMOTE_BROWSER.equalsIgnoreCase(browser)) {
+        } else if (CHROME_REMOTE_BROWSER.equalsIgnoreCase(browser)) {
             driver = createRemoteChromeDriver();
         } else {
             throw new IllegalArgumentException("Invalid browser: " + browser);
         }
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(900));
 
         return driver;
     }
@@ -47,7 +54,7 @@ public class WebDriverFactory {
             ChromeOptions options = initChromeOptions();
 
             // Pass capabilities to the RemoteWebDriver constructor
-            return new RemoteWebDriver(new URL(Constants.REMOTE_URL), options);
+            return new RemoteWebDriver(new URL(REMOTE_URL), options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +62,7 @@ public class WebDriverFactory {
 
     private static ChromeOptions initChromeOptions() {
         ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        options.setPageLoadStrategy(EAGER);
         options.addArguments("--incognito");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 

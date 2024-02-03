@@ -71,8 +71,8 @@ public class SqlSelectPage extends BasePage {
 
             collect1.put(contactName.getText(), address.getText());
         }
-        LOG.debug(collect1);
-        LOG.debug("####### " + collect1.size() + " #######");
+        LOG.info("####### COLLECTION DATA: " + collect1 + " #######");
+        LOG.info("####### COLLECTION SIZE: " + collect1.size() + " #######");
 
         return collect1;
     }
@@ -88,11 +88,11 @@ public class SqlSelectPage extends BasePage {
         ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery2);
 
         // TODO: < improve logic to avoid Thread.sleep() -> add a wait  object  for the upcoming  element >
-        try {
+  /*      try {
             Thread.sleep(700);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         ((JavascriptExecutor) getDriver()).executeScript(jsScriptInsertCustomer);
         ((JavascriptExecutor) getDriver()).executeScript(submitSQLQuery2);

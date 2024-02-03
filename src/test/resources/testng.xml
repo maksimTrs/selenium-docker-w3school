@@ -3,7 +3,7 @@
 <suite name="Demo suite - Google search">
 
     <test name="Functional tests">
-
+        <!-- CHROME_REMOTE  |  CHROME-->
         <parameter name="BROWSER" value="CHROME_REMOTE"/>
         <classes>
             <class name="testsuite.SelectContactNameAndAddressTest"/>

@@ -25,15 +25,17 @@ import static com.demo.constants.Constants.REMOTE_URL;
 
 @Listeners(TestListener.class)
 public abstract class BaseTest {
-
     private static final Logger LOG = LogManager.getLogger(BaseTest.class);
-  //  private static final ThreadLocal<RemoteWebDriver> remoteThreadLocalDriver = new ThreadLocal<>();
     protected WebDriver driver;
-
 
     @Parameters({"BROWSER"})  // "CHROME_REMOTE" | "CHROME"
     @BeforeMethod
-    public void beforeTest(@Optional("CHROME") String browser, ITestContext testContext) {
+    public void beforeTest(@Optional("CHROME_REMOTE") String xmlBrowser, ITestContext testContext) {
+
+        // Check if the system property -DBROWSER is provided
+        String systemBrowser = System.getProperty("BROWSER");
+        // Determine the browser based on priority
+        String browser = (systemBrowser != null && !systemBrowser.isEmpty()) ? systemBrowser : xmlBrowser;
 
         //driver = initializeDriver(browser);
         driver = WebDriverFactory.getDriver(browser);
@@ -50,42 +52,7 @@ public abstract class BaseTest {
                     + iTestResult.getTestName().toUpperCase() + " ###################");
         }
         driver.quit();
-      //  remoteThreadLocalDriver.remove();
     }
-
-
-/*    public WebDriver initializeDriver(String browser) {
-
-        if (Constants.CHROME_BROWSER.equalsIgnoreCase(browser)) {
-
-            ChromeOptions options = new ChromeOptions();
-            options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-            options.addArguments("--incognito");
-            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-            //options.addArguments("--headless","--whitelisted-ips","--no-sandbox","--disable-extensions");
-            driver = new ChromeDriver(options);
-
-        } else if (Constants.CHROME_REMOTE_BROWSER.equalsIgnoreCase(browser)) {
-
-            ChromeOptions options = new ChromeOptions();
-            options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-            options.addArguments("--incognito");
-            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-
-            try {
-                remoteThreadLocalDriver.set(new RemoteWebDriver(new URL(REMOTE_URL), options));
-                driver = remoteThreadLocalDriver.get();
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
-        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(1000));
-
-        return driver;
-    }*/
-
 
     @Attachment(value = "Screenshot", type = "image/png")
     public byte[] takeScreenShot() {

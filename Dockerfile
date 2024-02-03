@@ -16,4 +16,5 @@ COPY src /apps/qa/src
 # Run Maven clean and test when the container starts
 #CMD ["mvn", "test"]
 #CMD ["mvn", "clean", "test"]
-ENTRYPOINT ["mvn", "clean", "-DBROWSER=$BROWSER", "test"]
+#ENTRYPOINT ["mvn", "clean", "-DBROWSER=$BROWSER", "test"]
+ENTRYPOINT mvn clean -DBROWSER=$BROWSER test
