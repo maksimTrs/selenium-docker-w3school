@@ -1,6 +1,5 @@
 package testsuite;
 
-import com.demo.constants.Constants;
 import com.demo.pages.SqlSelectPage;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
@@ -32,11 +31,10 @@ public class InsertCustomerTest extends BaseTest {
         launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, contactName));
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
-        Assert.assertTrue(contactNameAndAddressMap.containsKey(contactName));
-        Assert.assertEquals(contactNameAndAddressMap.get(contactName), "000 Main St");
-
-
         Allure.addAttachment("Actual Inserted Customer " + contactName + " Address: ",
                 contactNameAndAddressMap.get(contactName));
+
+        Assert.assertTrue(contactNameAndAddressMap.containsKey(contactName));
+        Assert.assertEquals(contactNameAndAddressMap.get(contactName), "000 Main St");
     }
 }

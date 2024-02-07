@@ -54,7 +54,7 @@ _**#############################################################################
    появятся папки:
 
 - _**allure-results**_: папка с allure отчетом по тестам. Для запуска генерации HTML отчета нужно установить allure на
-  вашу машину (https://allurereport.org/docs/gettingstarted-installation/) и выполнить CLI команду  из корневой папки:
+  вашу машину (https://allurereport.org/docs/gettingstarted-installation/) и выполнить CLI команду из корневой папки:
 
   **_`allure serve`_**
 

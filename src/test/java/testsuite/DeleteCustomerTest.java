@@ -1,6 +1,5 @@
 package testsuite;
 
-import com.demo.constants.Constants;
 import com.demo.pages.SqlSelectPage;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
@@ -17,7 +16,7 @@ import static com.demo.constants.Constants.LAUNCH_URL;
 
 public class DeleteCustomerTest extends BaseTest {
 
-    private static final String CONTRACT_NAME = "John_Del Doe_Del";
+    private static final String CONTACT_NAME = "John_Del Doe_Del";
 
 
     @BeforeMethod
@@ -27,9 +26,9 @@ public class DeleteCustomerTest extends BaseTest {
 
         driver.get(LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
-        launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, CONTRACT_NAME));
+        launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, CONTACT_NAME));
 
-        Assert.assertEquals(launchPage.getContactAddressText(CONTRACT_NAME), "007 DEL Street");
+        Assert.assertEquals(launchPage.getContactAddressText(CONTACT_NAME), "007 DEL Street");
     }
 
 
@@ -43,14 +42,13 @@ public class DeleteCustomerTest extends BaseTest {
 
         //driver.get(Constants.LAUNCH_URL);
         SqlSelectPage launchPage = new SqlSelectPage(driver);
-        launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, CONTRACT_NAME));
+        launchPage.insertOrDeleteSqlQuery(String.format(sqlCustomerQuery, CONTACT_NAME));
 
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
-        Assert.assertFalse(contactNameAndAddressMap.containsKey(CONTRACT_NAME));
+        Allure.addAttachment("Actual Deleted Customer " + CONTACT_NAME + " has and address: ",
+                contactNameAndAddressMap.getOrDefault(CONTACT_NAME, "NULL -> DELETED OBJECT"));
 
-
-        Allure.addAttachment("Actual Deleted Customer " + CONTRACT_NAME + " has and address: ",
-                contactNameAndAddressMap.getOrDefault(CONTRACT_NAME, "NULL -> DELETED OBJECT"));
+        Assert.assertFalse(contactNameAndAddressMap.containsKey(CONTACT_NAME));
     }
 }

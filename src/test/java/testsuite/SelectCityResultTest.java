@@ -26,10 +26,9 @@ public class SelectCityResultTest extends BaseTest {
         SqlSelectPage launchPage = new SqlSelectPage(driver);
         launchPage.selectSqlQuery(String.format(sqlCustomerQuery, city));
 
-        Assert.assertEquals(launchPage.getTableSize(), 6);
-
-
         Allure.addAttachment("Actual result count for the " + city + " query: ",
                 String.valueOf(launchPage.getTableSize()));
+
+        Assert.assertEquals(launchPage.getTableSize(), 6);
     }
 }

@@ -1,6 +1,5 @@
 package testsuite;
 
-import com.demo.constants.Constants;
 import com.demo.pages.SqlSelectPage;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
@@ -31,10 +30,9 @@ public class SelectContactNameAndAddressTest extends BaseTest {
         launchPage.executeSQLRunButton();
         Map<String, String> contactNameAndAddressMap = launchPage.getContactAndAddressTableData();
 
-        Assert.assertEquals(contactNameAndAddressMap.get(contactRovelli), addressRovelli);
-
-
         Allure.addAttachment("Actual contact " + contactRovelli + " address: ",
                 contactNameAndAddressMap.get(contactRovelli));
+
+        Assert.assertEquals(contactNameAndAddressMap.get(contactRovelli), addressRovelli);
     }
 }
